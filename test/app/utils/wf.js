@@ -12,7 +12,7 @@ function wf (props) {
     if (newProps[key].includes('google.png')) {
       newProps[key] = wfTorrent['google.png']
     }
-
+    // need to make request to the page and see if the image has been appended, if it has, then change source to blog url, if not, then make request to the server 
     if (newProps[key].includes('apple.png')) {
       newProps[key] = wfTorrent['apple.png']
     }
