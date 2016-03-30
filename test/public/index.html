@@ -8,9 +8,11 @@
      <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
      <script>
        var client = new WebTorrent();
-       var wfTorrent = {};
+       var wfTorrent = {
+         'imgs/apple.png': 'imgs/netflix.png'
+       };
 
-       client.add('magnet:?xt=urn:btih:128241504107b93e7598e757160e01210d3ddcda&dn=apple.png&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io', function(torrent) {
+       client.add('magnet:?xt=urn:btih:b727c14006ef4f23601d8d6d0450f16f737c10c8&dn=spacex.png&tr=udp%3A%2F%2Fexodus.desync.com%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.internetwarriors.net%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&tr=wss%3A%2F%2Ftracker.webtorrent.io', function(torrent) {
 
          // show torrent download progress
          torrent.on('download', function(chunkSize){

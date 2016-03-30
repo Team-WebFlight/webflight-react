@@ -1,0 +1,29 @@
+{
+  "name": "wf-react",
+  "version": "1.0.0",
+  "description": "WebFlight for React apps",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "babel-eslint": "^5.0.0",
+    "webtorrent": "^0.88.1"
+  },
+  "devDependencies": {
+    "standard": "^6.0.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-WebFlight/wf-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-WebFlight/wf-react/issues"
+  },
+  "homepage": "https://www.webflight.io"
+}

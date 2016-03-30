@@ -7,18 +7,18 @@ import Button from './components/Button.jsx';
 class App extends Component {
   constructor() {
     super();
-    this.state = {num: Math.floor(Math.random() * 3)};
+    this.state = {num: Math.floor(Math.random() * 4)};
     this.refresh = function() {
-      return this.setState({num: Math.floor(Math.random() * 3)});
+      return this.setState({num: Math.floor(Math.random() * 4)});
     }.bind(this);
   }
 
   render() {
-    const logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png'];
+    const logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png', 'spacex.png'];
 
     return (
       <div>
-        <Logo image={logos[this.state.num]} />
+        <Logo image={logos[this.state.num]} otherImage={'other'}/>
         <Button fn={this.refresh} />
       </div>
     );

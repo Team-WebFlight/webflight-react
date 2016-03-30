@@ -60,7 +60,7 @@
 
 	var _Logo2 = _interopRequireDefault(_Logo);
 
-	var _Button = __webpack_require__(160);
+	var _Button = __webpack_require__(161);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -80,9 +80,9 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this));
 
-	    _this.state = { num: Math.floor(Math.random() * 3) };
+	    _this.state = { num: Math.floor(Math.random() * 4) };
 	    _this.refresh = function () {
-	      return this.setState({ num: Math.floor(Math.random() * 3) });
+	      return this.setState({ num: Math.floor(Math.random() * 4) });
 	    }.bind(_this);
 	    return _this;
 	  }
@@ -90,12 +90,12 @@
 	  _createClass(App, [{
 	    key: 'render',
 	    value: function render() {
-	      var logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png'];
+	      var logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png', 'spacex.png'];
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Logo2.default, { image: logos[this.state.num] }),
+	        _react2.default.createElement(_Logo2.default, { image: logos[this.state.num], otherImage: 'other' }),
 	        _react2.default.createElement(_Button2.default, { fn: this.refresh })
 	      );
 	    }
@@ -8005,6 +8005,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8013,7 +8017,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18736,7 +18740,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 147 */
@@ -19723,7 +19727,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _wf = __webpack_require__(161);
+	var _wf = __webpack_require__(160);
 
 	var _wf2 = _interopRequireDefault(_wf);
 
@@ -19734,6 +19738,8 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// import wf from 'wf-react/utils/wf-react.js'
 
 	var Logo = function (_Component) {
 	  _inherits(Logo, _Component);
@@ -19750,20 +19756,20 @@
 	  _createClass(Logo, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var wfp = (0, _wf2.default)(nextProps);
-	      this.wfProps = wfp;
-	      console.log(wfp);
+	      this.wfProps = (0, _wf2.default)(nextProps);
 	    }
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.wfProps = this.props;
+	      // console.log('this is this.wfProps: ', this.wfProps)
+	      this.wfProps = (0, _wf2.default)(this.props);
 	    }
+	    // this.wfProps.[propName]
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      console.log(this.wfProps);
+	      console.log('this is this.wfProps: ', this.wfProps);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -19779,6 +19785,84 @@
 
 /***/ },
 /* 160 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* globals wfTorrent */
+
+	// input: props Object
+	// sample input:
+	// const sample = {
+	//   image: 'img.jpg',
+	//   image2: 'img2.jpg',
+	//   method: 'function'
+	// }
+
+	// copy props to newProps
+
+	function wfReplace(props) {
+	  console.log('this is wfTorrent: ', wfTorrent);
+
+	  // TODO: parse files
+
+	  var keys = Object.keys(props);
+	  console.log(props);
+	  var newProps = {};
+
+	  keys.forEach(function (key) {
+	    newProps[key] = props[key];
+	  });
+
+	  keys.forEach(function (key) {
+
+	    // check if prop values exist on filesObj
+	    if (wfTorrent[newProps[key]]) {
+	      console.log('image? ', newProps[key]);
+	      console.log('blob url? ', wfTorrent[newProps[key]]);
+	      newProps[key] = wfTorrent[newProps[key]]; // <-- will be blob URL if it has finished downloading
+	    }
+	  });
+	  console.log('here is newProps: ', newProps);
+	  return newProps;
+	}
+
+	exports.default = wfReplace;
+
+	// /* globals wfTorrent */
+	//
+	// function wf (props) {
+	//   var keys = Object.keys(props)
+	//   var newProps = {}
+	//
+	//   keys.forEach((key) => {
+	//     newProps[key] = props[key]
+	//   })
+	//
+	//   keys.map((key) => {
+	//     if (newProps[key].includes('google.png')) {
+	//       newProps[key] = wfTorrent['google.png']
+	//     }
+	//     // need to make request to the page and see if the image has been appended, if it has, then change source to blog url, if not, then make request to the server
+	//     if (newProps[key].includes('apple.png')) {
+	//       newProps[key] = wfTorrent['apple.png']
+	//     }
+	//
+	//     if (newProps[key].includes('netflix.png')) {
+	//       newProps[key] = wfTorrent['netflix.png']
+	//     }
+	//   })
+	//
+	//   return newProps
+	// }
+	//
+	// export default wf
+
+/***/ },
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19829,44 +19913,6 @@
 	}(_react.Component);
 
 	exports.default = Button;
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/* globals wfTorrent */
-
-	function wf(props) {
-	  var keys = Object.keys(props);
-	  var newProps = {};
-
-	  keys.forEach(function (key) {
-	    newProps[key] = props[key];
-	  });
-
-	  keys.map(function (key) {
-	    if (newProps[key].includes('google.png')) {
-	      newProps[key] = wfTorrent['google.png'];
-	    }
-
-	    if (newProps[key].includes('apple.png')) {
-	      newProps[key] = wfTorrent['apple.png'];
-	    }
-
-	    if (newProps[key].includes('netflix.png')) {
-	      newProps[key] = wfTorrent['netflix.png'];
-	    }
-	  });
-
-	  return newProps;
-	}
-
-	exports.default = wf;
 
 /***/ }
 /******/ ]);
