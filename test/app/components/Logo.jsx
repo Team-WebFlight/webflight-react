@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import wf from '../utils/wf.js';
+import wfReplace from '../utils/wf.js';
+// import wf from 'wf-react/utils/wf-react.js'
 
 class Logo extends Component {
   constructor() {
@@ -9,14 +10,16 @@ class Logo extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.wfProps = wf(nextProps);
+    this.wfProps = wfReplace(nextProps);
   }
 
   componentWillMount() {
-    this.wfProps = wf(this.props);
+    // console.log('this is this.wfProps: ', this.wfProps)
+    this.wfProps = wfReplace(this.props);
   }
-
+  // this.wfProps.[propName]
   render() {
+    console.log('this is this.wfProps: ', this.wfProps)
     return (
       <div>
         <img src={this.wfProps.image}/>
