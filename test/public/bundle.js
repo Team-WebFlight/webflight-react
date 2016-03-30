@@ -60,7 +60,7 @@
 
 	var _Logo2 = _interopRequireDefault(_Logo);
 
-	var _Button = __webpack_require__(160);
+	var _Button = __webpack_require__(161);
 
 	var _Button2 = _interopRequireDefault(_Button);
 
@@ -8005,6 +8005,10 @@
 	  }
 	};
 
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8013,7 +8017,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -18736,7 +18740,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 147 */
@@ -19723,7 +19727,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _wf = __webpack_require__(161);
+	var _wf = __webpack_require__(160);
 
 	var _wf2 = _interopRequireDefault(_wf);
 
@@ -19750,20 +19754,16 @@
 	  _createClass(Logo, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var wfp = (0, _wf2.default)(nextProps);
-	      this.wfProps = wfp;
-	      console.log(wfp);
+	      this.wfProps = (0, _wf2.default)(nextProps);
 	    }
 	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.wfProps = this.props;
+	      this.wfProps = (0, _wf2.default)(this.props);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      console.log(this.wfProps);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -19779,6 +19779,44 @@
 
 /***/ },
 /* 160 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* globals wfTorrent */
+
+	function wf(props) {
+	  var keys = Object.keys(props);
+	  var newProps = {};
+
+	  keys.forEach(function (key) {
+	    newProps[key] = props[key];
+	  });
+
+	  keys.map(function (key) {
+	    if (newProps[key].includes('google.png')) {
+	      newProps[key] = wfTorrent['google.png'];
+	    }
+	    // need to make request to the page and see if the image has been appended, if it has, then change source to blog url, if not, then make request to the server
+	    if (newProps[key].includes('apple.png')) {
+	      newProps[key] = wfTorrent['apple.png'];
+	    }
+
+	    if (newProps[key].includes('netflix.png')) {
+	      newProps[key] = wfTorrent['netflix.png'];
+	    }
+	  });
+
+	  return newProps;
+	}
+
+	exports.default = wf;
+
+/***/ },
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19829,44 +19867,6 @@
 	}(_react.Component);
 
 	exports.default = Button;
-
-/***/ },
-/* 161 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/* globals wfTorrent */
-
-	function wf(props) {
-	  var keys = Object.keys(props);
-	  var newProps = {};
-
-	  keys.forEach(function (key) {
-	    newProps[key] = props[key];
-	  });
-
-	  keys.map(function (key) {
-	    if (newProps[key].includes('google.png')) {
-	      newProps[key] = wfTorrent['google.png'];
-	    }
-
-	    if (newProps[key].includes('apple.png')) {
-	      newProps[key] = wfTorrent['apple.png'];
-	    }
-
-	    if (newProps[key].includes('netflix.png')) {
-	      newProps[key] = wfTorrent['netflix.png'];
-	    }
-	  });
-
-	  return newProps;
-	}
-
-	exports.default = wf;
 
 /***/ }
 /******/ ]);
