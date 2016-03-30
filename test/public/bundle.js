@@ -19813,6 +19813,8 @@
 	  console.log(props);
 	  var newProps = {};
 
+	  // TODO: find a better way to copy
+
 	  keys.forEach(function (key) {
 	    newProps[key] = props[key];
 	  });
@@ -19821,12 +19823,12 @@
 
 	    // check if prop values exist on filesObj
 	    if (wfTorrent[newProps[key]]) {
-	      console.log('image? ', newProps[key]);
-	      console.log('blob url? ', wfTorrent[newProps[key]]);
+	      // console.log('image? ', newProps[key])
+	      // console.log('blob url? ', wfTorrent[newProps[key]])
 	      newProps[key] = wfTorrent[newProps[key]]; // <-- will be blob URL if it has finished downloading
 	    }
 	  });
-	  console.log('here is newProps: ', newProps);
+	  // console.log('here is newProps: ', newProps)
 	  return newProps;
 	}
 
