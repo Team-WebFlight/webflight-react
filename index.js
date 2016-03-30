@@ -65,13 +65,8 @@ function WebFlight (options, serverRoot) {
 
 // TODO: Recreate
 WebFlight.prototype.init = function () {
-  const htmlFiles = Object.keys(this.routes).map((route) => {
-    return this.routes[route]
-  })
-  const htmlStrings = stringifyFiles(htmlFiles)
-  const filesObj = createFilesObj(this.assetsPath, this.assetsRoute)
 
-  // createFilesObj
+  createFilesObj(this.assetsPath)
   // .then(prioritizeFiles) --> resolve array
   // .then(createTorrent)
   // .then(createHtml)
