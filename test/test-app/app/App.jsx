@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import Logo from './components/Logo.jsx';
 import Button from './components/Button.jsx';
 
+import WebFlight from './components/WebFlight.jsx';
+
 class App extends Component {
   constructor() {
     super();
@@ -14,15 +16,16 @@ class App extends Component {
   }
 
   render() {
-    const logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png', 'spacex.png'];
+    const logos = ['imgs/google.png', 'imgs/apple.png', 'imgs/netflix.png'];
 
     return (
       <div>
-        <Logo image={logos[this.state.num]} otherImage={'other'}/>
+        <Logo image={logos[this.state.num]} />
         <Button fn={this.refresh} />
+        <WebFlight src="imgs/spacex.png" />
+        <WebFlight src="imgs/netflix.png" />
       </div>
     );
   }
 }
-
 ReactDOM.render(<App />, document.getElementById('app'));
