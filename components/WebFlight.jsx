@@ -11,10 +11,8 @@ class WebFlight extends Component {
     this.replaceSrc = function (src) {
       if (wfTorrent[path.basename(src)]) {
         this.wfSrc = wfTorrent[path.basename(src)]
-        console.log('SUCCESSFUL RESET')
       } else {
         this.wfSrc = src
-        console.log('UNSUCCESSFUL')
       }
     }
   }

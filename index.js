@@ -4,24 +4,17 @@ const fs = require('fs')
 const path = require('path')
 const child_process = require('child_process')
 
-const stringifyFiles = require('./lib/stringifyFiles')
-const createFilesObj = require('./lib/createFilesObj')
-const hashFilesObj = require('./lib/hashFilesObj')
-const writeJsUL = require('./lib/writeJsUL')
-const replaceHtml = require('./lib/replaceHtml')
-const addStatusBar = require('./lib/addStatusBar')
-const writeNewHtml = require('./lib/writeNewHtml')
 const botGenerator = require('./lib/botGenerator')
+const createFilesArr = require('./lib/createFilesArr')
+const createHtml = require('./lib/createHtml')
+const createTorrent = require('./lib/createTorrent')
+const prioritizeFiles = require('./lib/prioritizeFiles')
+const writeSeedScript = require('./lib/writeSeedScript')
 
 /**
 * @param {Object} options
-*   siteUrl: String            (required)
-*   assetsPath: String|Array   (required)
-*   assetsRoute: String|Array  (required)
-*   routes: Object             (required)
-*   userCount: Number          (optional - defaults to 10)
+*   assetsPath: Array          (required)
 *   wfPath: String             (optional - defaults to '/wfPath')
-*   wfRoute: String            (optional - defaults to '/wfRoute')
 *   seedScript: String         (optional - defaults to 'wf-seed.js')
 *   statusBar: Boolean         (optional - defaults to true)
 *
@@ -33,13 +26,6 @@ function WebFlight (options, serverRoot) {
     this[key] = options[key]
   })
 
-  let fileNamesArr = Object.keys(this.routes).map((file) => {
-    return path.basename(this.routes[file])
-  })
-
-  this.active = false // non-configurable
-  this.fileNames = fileNamesArr // non-configurable
-
   this.wfPath = options.wfPath || path.join(serverRoot, '/wfPath')  // default
 
   // TODO: existsSync is deprecated, need alternative
@@ -49,42 +35,20 @@ function WebFlight (options, serverRoot) {
   }
 
   this.seedScript = options.seedScript || path.join(this.wfPath, 'js/wf-seed.js')  // default
-
-  this.htmlOutput = fileNamesArr.map((file) => { // non-configurable
-    return `${this.wfPath}/wf-${file}`
-  })
-
+  this.htmlOutput = options.htmlOutput || path.join(this.wfPath, 'wf-index.html')  // non-configurable
   this.statusBar = options.statusBar || true // default
-  console.log('wfobj', this)
 
-  if (!this.siteUrl) showError('siteUrl')
   if (!this.assetsPath) showError('assetsPath')
-  // if (!this.assetsRoute) showError('assetsRoute')
   if (!options) showError('options')
 }
 
-// TODO: Recreate
 WebFlight.prototype.init = function () {
-
-  createFilesObj(this.assetsPath)
-  .then(prioritizeFiles) 
-  // .then(createTorrent)
-  // .then(createHtml)
-  // .then(writeJsUL)
-  // .then(botGenerator)
-
-  if (this.statusBar) {
-    hashFilesObj(filesObj)
-    .then(writeJsUL.bind(null, this.seedScript, this.siteUrl, this.stopCount))
-    .then(replaceHtml.bind(null, htmlStrings, htmlFiles))
-    .then(addStatusBar.bind(null))
-    .then(writeNewHtml.bind(null, this.htmlOutput))
-  } else {
-    hashFilesObj(filesObj)
-    .then(writeJsUL.bind(null, this.seedScript, this.siteUrl, this.stopCount))
-    .then(replaceHtml.bind(null, htmlStrings, htmlFiles))
-    .then(writeNewHtml.bind(null, this.htmlOutput))
-  }
+  createFilesArr(this.assetsPath)
+  .then(prioritizeFiles.bind(null))
+  .then(createTorrent.bind(null))
+  .then(createHtml.bind(null, this.htmlOutput))
+  .then(writeSeedScript.bind(null, this.seedScript))
+  .then(botGenerator.bind(null))
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
