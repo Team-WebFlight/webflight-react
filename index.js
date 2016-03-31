@@ -67,7 +67,7 @@ function WebFlight (options, serverRoot) {
 WebFlight.prototype.init = function () {
 
   createFilesObj(this.assetsPath)
-  // .then(prioritizeFiles) --> resolve array
+  .then(prioritizeFiles) 
   // .then(createTorrent)
   // .then(createHtml)
   // .then(writeJsUL)
