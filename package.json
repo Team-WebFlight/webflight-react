@@ -15,8 +15,8 @@
     "webtorrent": "^0.88.1"
   },
   "devDependencies": {
-    "standard": "^6.0.8",
-    "chai": "^3.5.0"
+    "chai": "^3.5.0",
+    "standard": "^6.0.8"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
