@@ -6,8 +6,12 @@
   "directories": {
     "test": "test"
   },
+  "standard": {
+    "parser": "babel-eslint",
+  },
   "dependencies": {
     "babel-eslint": "^5.0.0",
+    "cheerio": "^0.20.0",
     "webtorrent": "^0.88.1"
   },
   "devDependencies": {
