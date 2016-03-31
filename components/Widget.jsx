@@ -1,4 +1,21 @@
-// TODO: REFACTOR TO MAKE THIS ITS OWN COMPONENT
+import React, { Component } from 'react'
+
+class Widget extends Component {
+  constructor () {
+    super()
+  }
+
+  render () {
+    return (
+    <div>
+    </div>
+    )
+  }
+}
+
+export default Widget
+
+// ------------- BELOW IS HTML CODE
 
 'use strict'
 
