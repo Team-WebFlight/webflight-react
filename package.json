@@ -6,12 +6,17 @@
   "directories": {
     "test": "test"
   },
+  "standard": {
+    "parser": "babel-eslint",
+  },
   "dependencies": {
     "babel-eslint": "^5.0.0",
+    "cheerio": "^0.20.0",
     "webtorrent": "^0.88.1"
   },
   "devDependencies": {
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "chai": "^3.5.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
