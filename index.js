@@ -5,8 +5,9 @@ const path = require('path')
 
 const botGenerator = require('./lib/botGenerator')
 const createFilesArr = require('./lib/createFilesArr')
-const createHtml = require('./lib/createHtml')
-const createTorrent = require('./lib/createTorrent')
+const injectScript = require('./lib/injectScript')
+const writeNewHtml = require('./lib/writeNewHtml')
+const getMagnetURI = require('./lib/getMagnetURI')
 const prioritizeFiles = require('./lib/prioritizeFiles')
 const stringifyHtml = require('./lib/stringifyHtml')
 
@@ -49,8 +50,9 @@ WebFlight.prototype.init = function () {
 
   createFilesArr(this.assetsPath)
   .then(prioritizeFiles.bind(null, this.seedScript))
-  .then(createTorrent.bind(null))
-  .then(createHtml.bind(null, stringifiedHtml, this.htmlOutput))
+  .then(getMagnetURI.bind(null))
+  .then(injectScript.bind(null, stringifiedHtml, this.htmlOutput))
+  .then(writeNewHtml.bind(null, this.htmlOutput))
   .then(botGenerator.bind(null, this.seedScript))
 }
 
