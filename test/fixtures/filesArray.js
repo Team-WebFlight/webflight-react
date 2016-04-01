@@ -5,10 +5,5 @@ module.exports = {
   absolute: [ '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/eagle.jpg',
   '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/falcon.jpg',
   '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/owl.jpg',
-  '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/videos/birds.gif' ],
-  dirname: [path.join(__dirname, 'assets/images/eagle.jpg'),
-  path.join(__dirname, 'assets/images/falcon.jpg'),
-  path.join(__dirname, 'assets/images/owl.jpg')
-  ]
+  '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/videos/birds.gif' ]
 }
-

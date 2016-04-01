@@ -9,11 +9,12 @@ const injectScript = require('./lib/injectScript')
 const writeNewHtml = require('./lib/writeNewHtml')
 const getMagnetURI = require('./lib/getMagnetURI')
 const prioritizeFiles = require('./lib/prioritizeFiles')
+const writeSeedScript = require('./lib/writeSeedScript')
 const stringifyHtml = require('./lib/stringifyHtml')
 
 /**
 * @param {Object} options
-*   assetsPath: Array          (required)
+*   assetsPath: String | Array (required)
 *   wfPath: String             (optional - defaults to '/wfPath')
 *   seedScript: String         (optional - defaults to 'wf-seed.js')
 *   htmlInput: String          (optional - defaults to 'index.html')
@@ -46,12 +47,14 @@ function WebFlight (options, serverRoot) {
 }
 
 WebFlight.prototype.init = function () {
+  if (this.assetsPath.constructor === String) this.assetsPath = [this.assetsPath]
   const stringifiedHtml = stringifyHtml(this.htmlInput)
 
   createFilesArr(this.assetsPath)
-  .then(prioritizeFiles.bind(null, this.seedScript))
+  .then(prioritizeFiles.bind(null))
+  .then(writeSeedScript.bind(null, this.seedScript))
   .then(getMagnetURI.bind(null))
-  .then(injectScript.bind(null, stringifiedHtml, this.htmlOutput))
+  .then(injectScript.bind(null, stringifiedHtml))
   .then(writeNewHtml.bind(null, this.htmlOutput))
   .then(botGenerator.bind(null, this.seedScript))
 }

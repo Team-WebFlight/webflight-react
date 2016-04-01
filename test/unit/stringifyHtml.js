@@ -12,5 +12,6 @@ describe('stringifyHtml', () => {
   const stringifiedHtmlTest = stringifyHtml(html)
   it('should return a string', () => {
     expect(stringifiedHtmlTest).to.be.a('string')
+    expect(stringifiedHtmlTest).to.not.be.empty
   })
 })

@@ -20,4 +20,8 @@ describe('writeSeedScript', () => {
     const file = path.join(__dirname, '../fixtures/wfPath/js/wf-seed.js')
     expect(file).to.not.have.content.that.match(/undefined/);
   })
+  it('should return the same input array to be used in next promise', () => {
+    const result = writeSeedScript(sortedFilesArr, options.seedScript)
+    expect(result).to.equal(sortedFilesArr)
+  })
 })
