@@ -7,11 +7,13 @@
     "test": "test"
   },
   "standard": {
-    "parser": "babel-eslint",
+    "parser": "babel-eslint"
   },
   "dependencies": {
     "babel-eslint": "^5.0.0",
     "cheerio": "^0.20.0",
+    "create-torrent": "^3.24.1",
+    "parse-torrent": "^5.7.3",
     "webtorrent": "^0.88.1"
   },
   "devDependencies": {
@@ -19,7 +21,7 @@
     "standard": "^6.0.8"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard && mocha test/tests"
   },
   "repository": {
     "type": "git",

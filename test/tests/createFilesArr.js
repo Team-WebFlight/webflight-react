@@ -1,3 +1,5 @@
+/* global describe, it */
+
 const createFilesArr = require('../../lib/createFilesArr')
 const pathsArr = require('../fixtures/opts.js')
 const pathsArrUniq = pathsArr.opts1.assetsPath
