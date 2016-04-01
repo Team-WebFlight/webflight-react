@@ -44,11 +44,10 @@ function WebFlight (options, serverRoot) {
 
 WebFlight.prototype.init = function () {
   createFilesArr(this.assetsPath)
-  .then(prioritizeFiles.bind(null))
+  .then(prioritizeFiles.bind(null, this.seedScript))
   .then(createTorrent.bind(null))
   .then(createHtml.bind(null, this.htmlOutput))
-  .then(writeSeedScript.bind(null, this.seedScript))
-  .then(botGenerator.bind(null))
+  .then(botGenerator.bind(null, this.seedScript))
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
