@@ -3,16 +3,18 @@
 const fs = require('fs')
 const path = require('path')
 
-const botGenerator = require('./lib/botGenerator')
-const createFilesArr = require('./lib/createFilesArr')
-const createHtml = require('./lib/createHtml')
-const createTorrent = require('./lib/createTorrent')
-const prioritizeFiles = require('./lib/prioritizeFiles')
 const stringifyHtml = require('./lib/stringifyHtml')
+const createFilesArr = require('./lib/createFilesArr')
+const prioritizeFiles = require('./lib/prioritizeFiles')
+const writeSeedScript = require('./lib/writeSeedScript')
+const getMagnetURI = require('./lib/getMagnetURI')
+const injectScript = require('./lib/injectScript')
+const writeNewHtml = require('./lib/writeNewHtml')
+const botGenerator = require('./lib/botGenerator')
 
 /**
 * @param {Object} options
-*   assetsPath: Array          (required)
+*   assetsPath: String | Array (required)
 *   wfPath: String             (optional - defaults to '/wfPath')
 *   seedScript: String         (optional - defaults to 'wf-seed.js')
 *   htmlInput: String          (optional - defaults to 'index.html')
@@ -45,12 +47,16 @@ function WebFlight (options, serverRoot) {
 }
 
 WebFlight.prototype.init = function () {
-  const stringifiedHtml = stringifyHtml(this.htmlInput)
+  if (this.assetsPath.constructor === String) this.assetsPath = [this.assetsPath]
 
-  createFilesArr(this.assetsPath)
-  .then(prioritizeFiles.bind(null, this.seedScript))
-  .then(createTorrent.bind(null))
-  .then(createHtml.bind(null, stringifiedHtml, this.htmlOutput))
+  const stringifiedHtml = stringifyHtml(this.htmlInput)
+  const files = createFilesArr(this.assetsPath)
+  const sortedFiles = prioritizeFiles(files)
+  writeSeedScript(sortedFiles, this.seedScript)
+
+  getMagnetURI(sortedFiles)
+  .then(injectScript.bind(null, stringifiedHtml))
+  .then(writeNewHtml.bind(null, this.htmlOutput))
   .then(botGenerator.bind(null, this.seedScript))
 }
 
