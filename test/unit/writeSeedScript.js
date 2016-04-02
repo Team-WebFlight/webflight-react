@@ -1,3 +1,5 @@
+/* globals describe, it */
+
 'use strict'
 const chai = require('chai')
 chai.use(require('chai-fs'))
@@ -8,7 +10,8 @@ const path = require('path')
 const writeSeedScript = require('../../lib/writeSeedScript')
 const sortedFilesArr = require('../fixtures/sortedFilesArray')
 const options = require('../fixtures/opts').opts1
-const pathsArr = require('../fixtures/opts.js')
+
+// TODO: Delete test/fixtures/wfPath/js/wf-seed.js before testing to test if file is being created
 
 describe('writeSeedScript', () => {
   writeSeedScript(sortedFilesArr, options.seedScript)
@@ -18,10 +21,6 @@ describe('writeSeedScript', () => {
   })
   it('seed file should not contain undefined values', () => {
     const file = path.join(__dirname, '../fixtures/wfPath/js/wf-seed.js')
-    expect(file).to.not.have.content.that.match(/undefined/);
-  })
-  it('should return the same input array to be used in next promise', () => {
-    const result = writeSeedScript(sortedFilesArr, options.seedScript)
-    expect(result).to.equal(sortedFilesArr)
+    expect(file).to.not.have.content.that.match(/undefined/)
   })
 })

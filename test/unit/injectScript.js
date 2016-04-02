@@ -1,25 +1,25 @@
-/* global describe, it */
+/* globals describe, it */
 
 'use strict'
+
 const chai = require('chai')
+const expect = chai.expect
 const assert = chai.assert
-const createHtml = require('../../lib/createHtml')
-const htmlString = require('../fixtures/htmlStrings')
-const fileObject = require('../fixtures/filesObj')
-const output = createHtml(htmlString,fileObject)
 
-describe('createHtml', () => {
-  it('should return a string', () => {
-   assert.isString(output[0], 'is an html string')
+const injectScript = require('../../lib/injectScript')
+const htmlString = require('../fixtures/htmlString')
+const magnetURI = require('../fixtures/magnetURI')
+
+describe('injectScript', () => {
+  const output = injectScript(htmlString, magnetURI)
+  it('expect function to return a string', () => {
+    expect(output).to.be.a('string')
   })
-
   it('should inject `client.add` script', () => {
-    assert.isTrue(output[0].includes('client.add'), 'includes injected js')
+    assert.isTrue(output.includes('client.add'))
   })
-
   it('should output different string than it takes in', () => {
-    let input = htmlString
-    assert.notEqual(input, output, 'transforms input string')
+    const input = htmlString
+    assert.notEqual(input, output)
   })
 })
-

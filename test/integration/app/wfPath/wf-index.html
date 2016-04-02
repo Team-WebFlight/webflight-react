@@ -1,0 +1,25 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>WebFlight React Test</title>
+  </head>
+  <body>
+     <div id="hello">hellooo world</div>
+     <div id="app"></div>
+
+     <script src="bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+  <script>
+  var client = new WebTorrent();
+  wfGlobal = {};
+
+  client.add('magnet:?xt=urn:btih:20fc56cc8070d9034bf093ca0c1aa98b6dcb4cc1&dn=falcon.jpg&tr=udp://exodus.desync.com:6969&tr=udp://tracker.coppersurfer.tk:6969&tr=udp://tracker.internetwarriors.net:1337&tr=udp://tracker.leechers-paradise.org:6969&tr=udp://tracker.openbittorrent.com:80&tr=wss://tracker.btorrent.xyz&tr=wss://tracker.fastcast.nz&tr=wss://tracker.openwebtorrent.com&tr=wss://tracker.webtorrent.io', function(torrent) {
+    torrent.files.forEach(function (file) {
+      file.getBlobURL(function (err, url) {
+        if (err) throw err
+        wfGlobal[file.name] = url
+      })
+    })
+  }
+  </script></body>
+</html>

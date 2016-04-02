@@ -3,14 +3,14 @@
 const fs = require('fs')
 const path = require('path')
 
-const botGenerator = require('./lib/botGenerator')
+const stringifyHtml = require('./lib/stringifyHtml')
 const createFilesArr = require('./lib/createFilesArr')
-const injectScript = require('./lib/injectScript')
-const writeNewHtml = require('./lib/writeNewHtml')
-const getMagnetURI = require('./lib/getMagnetURI')
 const prioritizeFiles = require('./lib/prioritizeFiles')
 const writeSeedScript = require('./lib/writeSeedScript')
-const stringifyHtml = require('./lib/stringifyHtml')
+const getMagnetURI = require('./lib/getMagnetURI')
+const injectScript = require('./lib/injectScript')
+const writeNewHtml = require('./lib/writeNewHtml')
+const botGenerator = require('./lib/botGenerator')
 
 /**
 * @param {Object} options
@@ -48,12 +48,13 @@ function WebFlight (options, serverRoot) {
 
 WebFlight.prototype.init = function () {
   if (this.assetsPath.constructor === String) this.assetsPath = [this.assetsPath]
-  const stringifiedHtml = stringifyHtml(this.htmlInput)
 
-  createFilesArr(this.assetsPath)
-  .then(prioritizeFiles.bind(null))
-  .then(writeSeedScript.bind(null, this.seedScript))
-  .then(getMagnetURI.bind(null))
+  const stringifiedHtml = stringifyHtml(this.htmlInput)
+  const files = createFilesArr(this.assetsPath)
+  const sortedFiles = prioritizeFiles(files)
+  writeSeedScript(sortedFiles, this.seedScript)
+
+  getMagnetURI(sortedFiles)
   .then(injectScript.bind(null, stringifiedHtml))
   .then(writeNewHtml.bind(null, this.htmlOutput))
   .then(botGenerator.bind(null, this.seedScript))

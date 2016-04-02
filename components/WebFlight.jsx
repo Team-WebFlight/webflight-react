@@ -1,4 +1,4 @@
-/* globals wfTorrent */
+/* globals wfGlobal */
 
 import React, { Component } from 'react'
 import path from 'path'
@@ -9,8 +9,8 @@ class WebFlight extends Component {
   constructor () {
     super()
     this.replaceSrc = function (src) {
-      if (wfTorrent[path.basename(src)]) {
-        this.wfSrc = wfTorrent[path.basename(src)]
+      if (wfGlobal[path.basename(src)]) {
+        this.wfSrc = wfGlobal[path.basename(src)]
       } else {
         this.wfSrc = src
       }
