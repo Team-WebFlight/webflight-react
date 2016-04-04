@@ -39,7 +39,7 @@ function WebFlight (options, serverRoot) {
 
   this.seedScript = options.seedScript || path.join(this.wfPath, 'js/wf-seed.js')  // default
   this.htmlInput = options.htmlInput || path.join(serverRoot, 'index.html')  // default
-  this.htmlOutput = options.htmlOutput || path.join(this.wfPath, 'wf-index.html')  // non-configurable
+  this.htmlOutput = options.htmlOutput || path.join(serverRoot, '/wfPath/wf-index.html')  // non-configurable
   this.statusBar = options.statusBar || true // default
 
   if (!this.assetsPath) showError('assetsPath')
@@ -61,7 +61,7 @@ WebFlight.prototype.init = function () {
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
-  // Go to new wf-index.html
+  res.sendFile(this.htmlOutput)
 }
 
 function showError (input) {
