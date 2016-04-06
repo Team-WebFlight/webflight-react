@@ -9,7 +9,7 @@ npm install webflight-react
 npm install electron-spawn        // initial peer
 ```
 
-### Usage
+### Usage: Server
 
 It's easy to incorporate WebFlight into your existing site! Just provide us with a few details on where to find the assets you want to seed, and we'll take care of the rest.
 
@@ -18,11 +18,11 @@ It's easy to incorporate WebFlight into your existing site! Just provide us with
 ```javascript
 const WebFlight = require('webflight-react')
 
-const wf = new WebFlight(options, serverRoot)
+const webflight = new WebFlight(options, serverRoot)
 
-wf.init()
+webflight.init()
 
-app.use(wf.redirect.bind(wf))
+app.use(webflight.redirect.bind(wf))
 ```
 
 ##### Options
@@ -37,7 +37,7 @@ app.use(wf.redirect.bind(wf))
 
 ```
 {
-  siteURL: String             // Required
+  siteUrl: String             // Required
   assetsPath: String|Array    // Required
   serverRoot: String          // Required
   wfPath: String              // Optional - defaults to '/wfPath'
@@ -46,14 +46,31 @@ app.use(wf.redirect.bind(wf))
 }
 ```
 
-## `webflight.redirect(req, res, next)`
-Once seeding threshold is met, redirect requests to webflight routes.
+#### `webflight.init()`
+Makes a copy of your site in `wfPath` folder and begins seeding assets.
+<br>`NOTE:` Check your terminal to see bot's seeding status.
 
-## `webflight.start()`
-Call starts the seeding process.
+#### `webflight.redirect()`
+Redirects all requests to `siteUrl` to the WebFlight version of your site where users will begin to download assets from the peer network.
 
-## `webflight.watch(req, res, next)`
-Watches for http requests to server. Based on a threshold specified in opts, `.watch()` will call `.start()` to begin seeding. When peers are connected, initial seeds are no longer necessary and are killed
+### Usage: React
+<i>* currently compatible with image assets only</i>
+```javascript
+import { WebFlight } from 'webflight-react'
+
+```
+
+Replace any image tags with WebFlight components and an `src` tag:
+
+```javascript
+<WebFlight src="imgs/bird.jpg" />
+
+```
+`NOTE:` You can add any additional props to the component as usual:
+```javascript
+<WebFlight src="imgs/bird.jpg" style={{background: 'black'}} onClick={this.update} />
+
+```
 
 ---
 
