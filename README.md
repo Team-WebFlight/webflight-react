@@ -6,7 +6,6 @@ WebFlight enables the users visiting a site to serve the content of that site. P
 ### Install
 ```bash
 npm install webflight-react
-npm install electron-spawn        // initial peer
 ```
 
 ### Usage: Server

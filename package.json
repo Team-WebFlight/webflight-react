@@ -14,7 +14,8 @@
     "cheerio": "^0.20.0",
     "create-torrent": "^3.24.1",
     "parse-torrent": "^5.7.3",
-    "webtorrent": "^0.88.1"
+    "webtorrent": "^0.88.1",
+    "electron-spawn": "^4.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
