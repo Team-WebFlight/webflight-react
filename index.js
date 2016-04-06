@@ -15,6 +15,7 @@ const botGenerator = require('./lib/botGenerator')
 /**
 * @param {Object} options
 *   assetsPath: String | Array (required)
+*   siteUrl: String            (required)
 *   wfPath: String             (optional - defaults to '/wfPath')
 *   seedScript: String         (optional - defaults to 'wf-seed.js')
 *   htmlInput: String          (optional - defaults to 'index.html')
@@ -42,6 +43,8 @@ function WebFlight (options, serverRoot) {
   this.htmlOutput = options.htmlOutput || path.join(serverRoot, '/wfPath/wf-index.html')  // non-configurable
   this.statusBar = options.statusBar || true // default
 
+  if (!serverRoot) showError('serverRoot')
+  if (!this.siteUrl) showError('siteUrl')
   if (!this.assetsPath) showError('assetsPath')
   if (!options) showError('options')
 }
@@ -61,7 +64,9 @@ WebFlight.prototype.init = function () {
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
-  res.sendFile(this.htmlOutput)
+  if (req.originalUrl === this.siteUrl) {
+    res.sendFile(this.htmlOutput)
+  }
 }
 
 function showError (input) {
