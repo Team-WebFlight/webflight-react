@@ -55,7 +55,7 @@ Redirects all requests to `siteUrl` to the WebFlight version of your site where 
 ### Usage: React
 <i>* currently compatible with image assets only</i>
 ```javascript
-import { WebFlight } from 'webflight-react'
+import WebFlight from 'webflight-react/components/WebFlight'
 
 ```
 
