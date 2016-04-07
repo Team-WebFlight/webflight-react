@@ -44,6 +44,7 @@ function WebFlight (options, serverRoot) {
   this.htmlInput = options.htmlInput || path.join(serverRoot, 'index.html')  // default
   this.htmlOutput = options.htmlOutput || path.join(serverRoot, '/wfPath/wf-index.html')  // non-configurable
   this.statusBar = options.statusBar || true // default
+  this.devMode = options.devMode || true
 
   if (!serverRoot) showError('serverRoot')
   if (!this.siteUrl) showError('siteUrl')

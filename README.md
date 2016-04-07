@@ -40,7 +40,7 @@ app.use(webflight.redirect.bind(wf))
   serverRoot: String          // Required
   wfPath: String              // Optional - defaults to '/wfPath'
   seedScript: String          // Optional - defaults to 'wf-seed.js'
-  devMode: Boolean            // Optional - defaults to false
+  devMode: Boolean            // Optional - defaults to true
 }
 ```
 
