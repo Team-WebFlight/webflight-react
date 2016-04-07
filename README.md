@@ -32,8 +32,7 @@ app.use(webflight.redirect.bind(wf))
 <br>```wfPath``` - (optional) The folder WebFlight files will appear in
 <br>```wfRoute``` - (optional) The route that retrieves WebFlight files
 <br>```seedScript``` - (optional) The script that will initialize seeding your assets so they're ready to be downloaded by users after the **userCount** threshold is passed
-<br>`statusBar` - (optional) Dropdown element that will appear on your website that shows users what is being seeded
-
+<br>`devMode` - (optional) Defaults to true while in development and does not run `Xvfb`
 ```
 {
   siteUrl: String             // Required
@@ -41,7 +40,7 @@ app.use(webflight.redirect.bind(wf))
   serverRoot: String          // Required
   wfPath: String              // Optional - defaults to '/wfPath'
   seedScript: String          // Optional - defaults to 'wf-seed.js'
-  statusBar: Boolean          // Optional - defaults to true
+  devMode: Boolean            // Optional - defaults to false
 }
 ```
 
