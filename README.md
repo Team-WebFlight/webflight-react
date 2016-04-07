@@ -3,15 +3,17 @@
 # WebFlight for React
 WebFlight enables the users visiting a site to serve the content of that site. P2P content sharing technology powered with :heart: by [WebTorrent](https://webtorrent.io)!
 
+`STATUS: ` WebFlight and WebFlight-React are currently in **alpha**. If you find a bug, please [open an issue] on GitHub.
+
 ### Install
 ```bash
 npm install webflight-react
 ```
 
 ### Usage: Server
+<i>* WebFlight currently depends on Node v5.x.</i>
 
 It's easy to incorporate WebFlight into your existing site! Just provide us with a few details on where to find the assets you want to seed, and we'll take care of the rest.
-
 #### Initialize WebFlight
 
 ```javascript
@@ -40,7 +42,7 @@ app.use(webflight.redirect.bind(wf))
   serverRoot: String          // Required
   wfPath: String              // Optional - defaults to '/wfPath'
   seedScript: String          // Optional - defaults to 'wf-seed.js'
-  devMode: Boolean            // Optional - defaults to false
+  devMode: Boolean            // Optional - defaults to true
 }
 ```
 
@@ -52,7 +54,7 @@ Makes a copy of your site in `wfPath` folder and begins seeding assets.
 Redirects all requests to `siteUrl` to the WebFlight version of your site where users will begin to download assets from the peer network.
 
 ### Usage: React
-<i>* currently compatible with image assets only</i>
+** currently compatible with image assets only*
 ```javascript
 import WebFlight from 'webflight-react/components/WebFlight'
 
