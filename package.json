@@ -1,5 +1,5 @@
 {
-  "name": "wf-react",
+  "name": "webflight-react",
   "version": "1.0.0",
   "description": "WebFlight for React apps",
   "main": "index.js",
@@ -14,14 +14,17 @@
     "cheerio": "^0.20.0",
     "create-torrent": "^3.24.1",
     "parse-torrent": "^5.7.3",
-    "webtorrent": "^0.88.1"
+    "webtorrent": "^0.88.1",
+    "electron-spawn": "^4.1.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "reactify": "^1.1.1"
   },
   "scripts": {
-    "test": "standard && mocha test/tests"
+    "test": "standard && mocha test/tests",
+    "build": "jsx components/WebFlight.jsx > components/WebFlight.js"
   },
   "repository": {
     "type": "git",
