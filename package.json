@@ -1,5 +1,5 @@
 {
-  "name": "wf-react",
+  "name": "webflight-react",
   "version": "1.0.0",
   "description": "WebFlight for React apps",
   "main": "index.js",
@@ -19,10 +19,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "reactify": "^1.1.1"
   },
   "scripts": {
-    "test": "standard && mocha test/tests"
+    "test": "standard && mocha test/tests",
+    "build": "jsx components/WebFlight.jsx > components/WebFlight.js"
   },
   "repository": {
     "type": "git",
