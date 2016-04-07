@@ -11,6 +11,7 @@ const getMagnetURI = require('./lib/getMagnetURI')
 const injectScript = require('./lib/injectScript')
 const writeNewHtml = require('./lib/writeNewHtml')
 const botGenerator = require('./lib/botGenerator')
+const botGeneratorDev = require('./lib/botGeneratorDev')
 
 /**
 * @param {Object} options
@@ -21,6 +22,7 @@ const botGenerator = require('./lib/botGenerator')
 *   htmlInput: String          (optional - defaults to 'index.html')
 *   htmlOutput: String         (optional - defaults to 'wf-index.html')
 *   statusBar: Boolean         (optional - defaults to true)
+*   devMode: Boolean           (optional - defaults to true)
 *
 * @param {string} serverRoot - path to root folder
 */
@@ -56,11 +58,17 @@ WebFlight.prototype.init = function () {
   const files = createFilesArr(this.assetsPath)
   const sortedFiles = prioritizeFiles(files)
   writeSeedScript(sortedFiles, this.seedScript)
-
-  getMagnetURI(sortedFiles)
-  .then(injectScript.bind(null, stringifiedHtml))
-  .then(writeNewHtml.bind(null, this.htmlOutput))
-  .then(botGenerator.bind(null, this.seedScript))
+  if (this.devMode) {
+    getMagnetURI(sortedFiles)
+    .then(injectScript.bind(null, stringifiedHtml))
+    .then(writeNewHtml.bind(null, this.htmlOutput))
+    .then(botGeneratorDev.bind(null, this.seedScript))
+  } else {
+    getMagnetURI(sortedFiles)
+    .then(injectScript.bind(null, stringifiedHtml))
+    .then(writeNewHtml.bind(null, this.htmlOutput))
+    .then(botGenerator.bind(null, this.seedScript))
+  }
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
