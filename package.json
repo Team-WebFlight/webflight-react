@@ -1,6 +1,6 @@
 {
   "name": "webflight-react",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "description": "WebFlight for React apps",
   "main": "index.js",
   "directories": {
@@ -21,6 +21,12 @@
     "chai": "^3.5.0",
     "standard": "^6.0.8",
     "reactify": "^1.1.1"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "test/fixtures/*"
+    ]
   },
   "scripts": {
     "test": "standard && mocha test/tests",
