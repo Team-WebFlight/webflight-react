@@ -10,14 +10,12 @@ const writeSeedScript = require('./lib/writeSeedScript')
 const getMagnetURI = require('./lib/getMagnetURI')
 const injectScript = require('./lib/injectScript')
 const writeNewHtml = require('./lib/writeNewHtml')
-const botGenerator = require('./lib/botGenerator')
-const botGeneratorDev = require('./lib/botGeneratorDev')
+let botGenerator // = require('./lib/botGenerator')
 
 /**
 * @param {Object} options
 *   assetsPath: String | Array (required)
 *   siteUrl: String            (required)
-*   wfPath: String             (optional - defaults to '/wfPath')
 *   seedScript: String         (optional - defaults to 'wf-seed.js')
 *   htmlInput: String          (optional - defaults to 'index.html')
 *   htmlOutput: String         (optional - defaults to 'wf-index.html')
@@ -32,13 +30,7 @@ function WebFlight (options, serverRoot) {
     this[key] = options[key]
   })
 
-  this.wfPath = options.wfPath || path.join(serverRoot, '/wfPath')  // default
-
-  // TODO: existsSync is deprecated, need alternative
-  if (!fs.existsSync(this.wfPath)) {
-    fs.mkdirSync(this.wfPath)
-    fs.mkdirSync(path.join(this.wfPath, 'js'))
-  }
+  this.wfPath = path.join(serverRoot, '/wfPath')
 
   this.seedScript = options.seedScript || path.join(this.wfPath, 'js/wf-seed.js')  // default
   this.htmlInput = options.htmlInput || path.join(serverRoot, 'index.html')  // default
@@ -60,16 +52,14 @@ WebFlight.prototype.init = function () {
   const sortedFiles = prioritizeFiles(files)
   writeSeedScript(sortedFiles, this.seedScript)
   if (this.devMode) {
-    getMagnetURI(sortedFiles)
-    .then(injectScript.bind(null, stringifiedHtml))
-    .then(writeNewHtml.bind(null, this.htmlOutput))
-    .then(botGeneratorDev.bind(null, this.seedScript))
+    botGenerator = require('./lib/botGeneratorDev')
   } else {
-    getMagnetURI(sortedFiles)
-    .then(injectScript.bind(null, stringifiedHtml))
-    .then(writeNewHtml.bind(null, this.htmlOutput))
-    .then(botGenerator.bind(null, this.seedScript))
+    botGenerator = require('./lib/botGenerator')
   }
+  getMagnetURI(sortedFiles)
+  .then(injectScript.bind(null, stringifiedHtml))
+  .then(writeNewHtml.bind(null, this.htmlOutput))
+  .then(botGenerator.bind(null, this.seedScript))
 }
 
 WebFlight.prototype.redirect = function (req, res, next) {
