@@ -1,9 +1,9 @@
 /* globals wfGlobal */
 
-var React = require('react');
-var path = require('path');
+var React = require('react')
+var path = require('path')
 
-var WebFlight = React.createClass({displayName: "WebFlight",
+var WebFlight = React.createClass({displayName: 'WebFlight',
 
   replaceSrc: function (src) {
     if (wfGlobal[path.basename(src)]) {
@@ -23,12 +23,13 @@ var WebFlight = React.createClass({displayName: "WebFlight",
 
   render: function () {
     return (
-      React.createElement("div", null, 
-      React.createElement("img", React.__spread({},  this.props, {src: this.wfSrc}))
+      React.createElement('div', null,
+      React.createElement('img', React.__spread({}, this.props, {src: this.wfSrc}))
       )
     )
   }
 
 })
 
-module.exports = WebFlight;
+module.exports = WebFlight
+
