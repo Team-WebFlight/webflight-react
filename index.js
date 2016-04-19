@@ -1,8 +1,6 @@
 'use strict'
 
-const fs = require('fs')
 const path = require('path')
-
 const stringifyHtml = require('./lib/stringifyHtml')
 const createFilesArr = require('./lib/createFilesArr')
 const prioritizeFiles = require('./lib/prioritizeFiles')
@@ -10,7 +8,7 @@ const writeSeedScript = require('./lib/writeSeedScript')
 const getMagnetURI = require('./lib/getMagnetURI')
 const injectScript = require('./lib/injectScript')
 const writeNewHtml = require('./lib/writeNewHtml')
-let botGenerator // = require('./lib/botGenerator')
+let botGenerator
 
 /**
 * @param {Object} options
