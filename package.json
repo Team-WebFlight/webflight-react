@@ -29,7 +29,7 @@
     ]
   },
   "scripts": {
-    "test": "standard && mocha test/tests",
+    "test": "standard && mocha test/unit",
     "build": "jsx components/WebFlight.jsx > components/WebFlight.js"
   },
   "repository": {
