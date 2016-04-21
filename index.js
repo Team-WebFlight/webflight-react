@@ -1,6 +1,7 @@
 'use strict'
 
 const path = require('path')
+const fs = require('fs')
 const stringifyHtml = require('./lib/stringifyHtml')
 const createFilesArr = require('./lib/createFilesArr')
 const prioritizeFiles = require('./lib/prioritizeFiles')
@@ -29,8 +30,15 @@ function WebFlight (options, serverRoot) {
   })
 
   this.wfPath = path.join(serverRoot, '/wfPath')
+  fs.mkdir(this.wfPath, () => `made ${this.wfPath}`)
 
-  this.seedScript = options.seedScript || path.join(this.wfPath, 'js/wf-seed.js')  // default
+  // make dir for seedScript if not specified in options
+  if (!options.seedScript) {
+    fs.mkdir(path.join(this.wfPath, '/js'), () => {})
+    this.seedScript = `${this.wfPath}/js/wf-seed.js`
+  } else {
+    this.seedScript = options.seedScript
+  }
   this.htmlInput = options.htmlInput || path.join(serverRoot, 'index.html')  // default
   this.htmlOutput = options.htmlOutput || path.join(serverRoot, '/wfPath/wf-index.html')  // non-configurable
   this.statusBar = options.statusBar || true // default
