@@ -7,7 +7,10 @@
     "test": "test"
   },
   "standard": {
-    "parser": "babel-eslint"
+    "parser": "babel-eslint",
+    "ignore": [
+      "test/fixtures/*"
+    ]
   },
   "dependencies": {
     "babel-eslint": "^5.0.0",
@@ -19,14 +22,9 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "standard": "^6.0.8",
-    "reactify": "^1.1.1"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "test/fixtures/*"
-    ]
+    "chai-fs": "^0.1.0",
+    "reactify": "^1.1.1",
+    "standard": "^6.0.8"
   },
   "scripts": {
     "test": "standard && mocha test/unit",
@@ -36,7 +34,7 @@
     "type": "git",
     "url": "git+https://github.com/Team-WebFlight/wf-react.git"
   },
-  "author": "",
+  "author": "Team WebFlight",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Team-WebFlight/wf-react/issues"
