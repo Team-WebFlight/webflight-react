@@ -1,4 +1,7 @@
-module.exports = [ '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/falcon.jpg',
-  '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/eagle.jpg',
-  '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/videos/birds.gif',
-  '/Users/Baoyee/Codesmith/wf-react/test/fixtures/assets/images/owl.jpg' ]
+const path = require('path')
+
+module.exports = [path.join(__dirname, '/assets/images/falcon.jpg'),
+  path.join(__dirname, '/assets/images/eagle.jpg'),
+  path.join(__dirname, '/assets/videos/birds.gif'),
+  path.join(__dirname, '/assets/images/owl.jpg') ]
+
